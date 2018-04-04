@@ -16,7 +16,7 @@ public class SysLogger  extends Log4JLogger {
 	
 	private static final long serialVersionUID = 1L;
 
-	public final static Log SYS_LOG = new SysLogger("TEST1.0"); 
+	public final static Log SYS_LOG = new SysLogger("TEST"); 
 	public final static Log SYS_ERROR = new SysLogger("ERROR_CONTROLLER");
 	
 	public SysLogger(String name) 

@@ -14,7 +14,7 @@ import com.lanyan.service.BookShowService;
 
 @Controller
 @RequestMapping("/show")
-public class ShowBookController {
+public class ShowBookController extends BaseController{
 	@Autowired
 	private BookShowService bookShowService;
 	

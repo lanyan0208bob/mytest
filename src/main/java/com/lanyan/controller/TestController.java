@@ -35,7 +35,7 @@ public  class TestController {
 	}
 	
 	
-	@RequestMapping(value="/test")
+	@RequestMapping(value="/test1")
 	@ResponseBody
 	public ResponDTO<List<UserDTO>>  test2(){
 		ResponDTO<List<UserDTO>> respon=new ResponDTO<List<UserDTO>>();
