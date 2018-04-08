@@ -5,6 +5,8 @@ import com.spatial4j.core.distance.DistanceUtils;
 import com.spatial4j.core.io.GeohashUtils;
 import com.spatial4j.core.shape.Rectangle;
 
+import ch.hsr.geohash.GeoHash;
+
 /**
  * 
 * @ClassName: SpatialContextUtil 地图相关
@@ -52,9 +54,31 @@ public class SpatialContextUtil {
 	 */
 	public static String getEncodeLatLon(double lon,double lat,int precision){
 		return GeohashUtils.encodeLatLon(lat, lon,precision);
-//		System.out.println(aa);
 	} 
 	
+	
+	/**
+	 * 
+	* @Title: getGeoHashs   由于getEncodeLatLon  存在临界问题，就是坐标点位于边界附近，被搜索的坐标点位于另一个区域，这时查不到，
+	* 需用周围八个网格模糊匹配 ，用or
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param lon 经度
+	* @param lat 纬度
+	* @param precision 精度
+	* @param    设定文件 
+	* @return GeoHash[]    返回类型 
+	* @throws 
+	* @author 王继波
+	* @date 2018年4月8日 下午5:29:17
+	 */
+	public static  GeoHash[] getGeoHashs(double lon,double lat,int precision){
+		GeoHash geoHash = GeoHash.withCharacterPrecision(lat, lon, precision);
+		GeoHash[] adjacent = geoHash.getAdjacent();
+//		for (GeoHash hash : adjacent) {
+//		    System.out.println(hash.toBase32());
+//		}
+		return adjacent;
+	}
 	/**]
 	 * 
 	* @Title: getDistance 
@@ -73,19 +97,17 @@ public class SpatialContextUtil {
 		SpatialContext geo = SpatialContext.GEO;  
 		return geo.calcDistance(geo.makePoint(lon, lat), geo.makePoint(tolon, tolat)) * DistanceUtils.DEG_TO_KM;  
 	}  
-	public static void getaa(double lon,double lat,int precision){
-		String aa=GeohashUtils.encodeLatLon(lat, lon,precision);
-		System.out.println(aa);
-	} 
+
 	public static void main(String[] args) {
-		getaa(116.175,40.242,12);
-		getaa(116.900,40.900,12);
+		System.out.println(getEncodeLatLon(116.175,40.242,12));
+//		getEncodeLatLon(116.900,40.900,12);
 //		getaa(116.174,40.241,4);
 //		getaa(116.17,40.24,1);
 //		getaa(116.1,40.2,9);
 //		getaa(1240,116);
-		getaa(116.175,40.242,4);
-		getaa(116.900,40.900,4);
+//		getEncodeLatLon(116.175,40.242,4);
+//		getEncodeLatLon(116.900,40.900,4);
+//		System.out.println(getGeoHashs(116.175,40.242,12),10);
 		System.out.println(getDistance(116.175,40.242,116.900,40.900));
 	}
 }
